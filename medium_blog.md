@@ -4,7 +4,7 @@
 
 ---
 
-![CycleGAN live Gradio demo — mountain, tree, and tent sketches translated in real time](blog_images/10_gradio_app_screenshot.png)
+![CycleGAN live Gradio demo — mountain, tree, and tent sketches translated in real time](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/10_gradio_app_screenshot.png)
 
 ---
 
@@ -49,11 +49,11 @@ I sampled 2,000 TU-Berlin sketches (Domain A) and 1,700 QuickDraw doodles (Domai
 
 **TU-Berlin — deliberate, detailed human drawings:**
 
-![TU-Berlin sketch samples — frog, tractor, TV, strawberry, skeleton, foot, car, knife](blog_images/04_tu_berlin_samples.png)
+![TU-Berlin sketch samples — frog, tractor, TV, strawberry, skeleton, foot, car, knife](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/04_tu_berlin_samples.png)
 
 **QuickDraw — fast, loose 20-second mobile doodles:**
 
-![QuickDraw doodle samples — simple rounded shapes and quick strokes](blog_images/05_quickdraw_samples.png)
+![QuickDraw doodle samples — simple rounded shapes and quick strokes](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/05_quickdraw_samples.png)
 
 The aesthetic difference is immediate: TU-Berlin sketches are deliberate and detailed, QuickDraw doodles are fast and loose.
 
@@ -63,7 +63,7 @@ This is the question to ask before training any translation model. If your two d
 
 I looked at two diagnostics:
 
-![Pixel intensity (log scale) on the left shows both domains are line art. Ink density on the right shows the real difference: TU-Berlin averages 1.8% dark pixels, QuickDraw averages 4.2%](blog_images/02_pixel_and_ink_density.png)
+![Pixel intensity (log scale) on the left shows both domains are line art. Ink density on the right shows the real difference: TU-Berlin averages 1.8% dark pixels, QuickDraw averages 4.2%](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/02_pixel_and_ink_density.png)
 
 On the left, a log-scale pixel intensity histogram. Both domains are pure line art (huge mass at 0 and 255), but the ink tone and distribution differ subtly.
 
@@ -77,7 +77,7 @@ Those distributions do not overlap much. CycleGAN has room to learn.
 
 CycleGAN uses *unpaired* data — meaning the DataLoader returns one random sketch and one independently sampled doodle per step. There is no correspondence between them, and the model never learns one.
 
-![A batch from the unpaired DataLoader — top row is Domain A (TU-Berlin), bottom row is Domain B (QuickDraw). No pair correspondence.](blog_images/06_dataloader_batch.png)
+![A batch from the unpaired DataLoader — top row is Domain A (TU-Berlin), bottom row is Domain B (QuickDraw). No pair correspondence.](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/06_dataloader_batch.png)
 
 This is the crucial mental model: at training time, the network literally does not know which doodle "goes with" which sketch, because nothing does.
 
@@ -187,7 +187,7 @@ Kaggle sessions time out. I wrote the full state (models + optimisers + schedule
 
 ### Training Curves
 
-![Three loss curves across 30 epochs — Generator stabilises around 2.0, Discriminator drops to ~0.1, Cycle-consistency loss falls from 1.24 to 0.28](blog_images/07_training_curves.png)
+![Three loss curves across 30 epochs — Generator stabilises around 2.0, Discriminator drops to ~0.1, Cycle-consistency loss falls from 1.24 to 0.28](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/07_training_curves.png)
 
 Three plots tell the story:
 
@@ -214,13 +214,13 @@ The numbers are fine, but what actually comes out?
 
 **Sketch → Doodle → Sketch**
 
-![Five TU-Berlin sketches (left), their QuickDraw-style translations (middle), and the cycle reconstructions (right)](blog_images/08_sketch_to_doodle_translations.png)
+![Five TU-Berlin sketches (left), their QuickDraw-style translations (middle), and the cycle reconstructions (right)](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/08_sketch_to_doodle_translations.png)
 
 Column 1 is the original TU-Berlin sketch, column 2 is the QuickDraw-style translation, column 3 is the reconstruction. Notice how the translated middle column has **thicker, bolder strokes** — that is the QuickDraw style the generator learned. The reconstructions in column 3 recover the original fine detail remarkably well.
 
 **Doodle → Sketch → Doodle**
 
-![Five QuickDraw doodles (left), their TU-Berlin-style translations (middle), and the cycle reconstructions (right)](blog_images/09_doodle_to_sketch_translations.png)
+![Five QuickDraw doodles (left), their TU-Berlin-style translations (middle), and the cycle reconstructions (right)](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/09_doodle_to_sketch_translations.png)
 
 This direction is harder — the generator has to *add* detail to a minimal doodle. You can see it attempting to lighten strokes and soften the harsh QuickDraw marks. The reconstructions are near-perfect because the round-trip passes through a detailed intermediate state.
 
@@ -238,7 +238,7 @@ def translate(img, direction):
     return T.ToPILImage()((y.clamp(-1, 1).squeeze(0).cpu() + 1) / 2)
 ```
 
-![The deployed Gradio app — upload an image, pick a direction, get the translation inline](blog_images/10_gradio_app_screenshot.png)
+![The deployed Gradio app — upload an image, pick a direction, get the translation inline](https://raw.githubusercontent.com/fahadcs321/CycleGan/refs/heads/main/medium_blog.md/10_gradio_app_screenshot.png)
 
 Upload any sketch, pick a direction, and the translation comes back inline. The whole app is ~80 lines and deploys to a free Hugging Face Space in about 3 minutes.
 
